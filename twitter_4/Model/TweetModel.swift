@@ -6,47 +6,31 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct TweetModel {
-    var name: String
-    var tweet: String
-    var time: TimeInterval
-    var likes: Double
-    var retweet: Double
-    var quoteR: Double
-    var reply: [TweetModel]
+class TweetModel: Object {
+    @objc dynamic var id: String = UUID().uuidString
+    @objc dynamic var name: String = ""
+    @objc dynamic var tweet: String = ""
+    @objc dynamic var time: TimeInterval = TimeInterval()
+    @objc dynamic var likes: Double = 0.0
+    @objc dynamic var retweet: Double = 0.0
+    @objc dynamic var quoteR: Double = 0.0
+    @objc dynamic var reply: String = ""
     
     func dateFormat(time: TimeInterval) -> String {
         let date = Date(timeIntervalSince1970: time)
         let formatedDate = DateFormatter()
-        formatedDate.dateFormat = "HH:mm:ss dd/MM/yyyy"
+        formatedDate.dateFormat = "dd/MM/yyyy"
         
         let dateString = formatedDate.string(from: date)
         return dateString
     }
-    
-    func timeCheck(now: TimeInterval, past: TimeInterval) -> String {
-        let timeDiff = Int(now - past)
-
-        let year = timeDiff / 31104000
-        let month = timeDiff / 2592000
-        let day = timeDiff / 86400
-        let hour = timeDiff / 3600
-        let minute = timeDiff / 60
-        let second = timeDiff
-
-        if year != 0 {
-            return "\(year)y"
-        } else if month != 0 {
-            return "\(month)m"
-        } else if day != 0 {
-            return "\(day)d"
-        } else if hour != 0 {
-            return "\(hour)h"
-        } else if minute != 0 {
-            return "\(minute)m"
+    func limitChar() {
+        if tweet.count > 140 {
+            print("Error")
         } else {
-            return "\(second)s"
+            print("Post")
         }
     }
 }

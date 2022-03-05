@@ -8,7 +8,8 @@
 import UIKit
 
 class TwitterDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    var tweetModel = TweetModel()
+    
     var reply: [TweetModel] = []
     var count = 0
     var name = ""
@@ -26,6 +27,7 @@ class TwitterDetailViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.sectionHeaderHeight = 0.1
         view.addSubview(tableView)
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reply.count + 4
     }
@@ -35,9 +37,9 @@ class TwitterDetailViewController: UIViewController, UITableViewDelegate, UITabl
         case 0:
             tableView.register(UINib(nibName: "SecondTableViewCell", bundle: nil), forCellReuseIdentifier: "secondCell")
             let cell = tableView.dequeueReusableCell(withIdentifier: "secondCell", for: indexPath) as! SecondTableViewCell
+            
             cell.tweet.text = tweet
-            cell.time.text = time
-            cell.name.text = name
+            cell.name.text = "Account Name"
             count += 1
             return cell
             
@@ -65,12 +67,10 @@ class TwitterDetailViewController: UIViewController, UITableViewDelegate, UITabl
         default:
             tableView.register(UINib(nibName: "FirstTableViewCell", bundle: nil), forCellReuseIdentifier: "firstCell")
             let cell = tableView.dequeueReusableCell(withIdentifier: "firstCell", for: indexPath) as! FirstTableViewCell
-            
-            let now = Date().timeIntervalSince1970
-            let past = reply[count - 4].time
+
             
             cell.tweet.text = reply[count - 4].tweet
-            cell.time.text = reply[count - 4].timeCheck(now: now, past: past)
+            cell.time.text = reply[count - 4].dateFormat(time: Date().timeIntervalSince1970 - 1234455)
             cell.name.text = reply[count - 4].name
             return cell
         }
