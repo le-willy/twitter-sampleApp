@@ -7,10 +7,12 @@
 
 import UIKit
 import SideMenu
+import RealmSwift
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
  
  var menu: SideMenuNavigationController?
+ 
  
  var items = [TweetModel(name: "Zsw", tweet: "Hello World", time: Date().timeIntervalSince1970 - 123456, likes: 1000, retweet: 2000, quoteR: 3000, reply: []),
               TweetModel(name: "Rew", tweet: "Hello World2", time: Date().timeIntervalSince1970 - 123456, likes: 2, retweet: 3, quoteR: 4, reply: []),

@@ -6,6 +6,7 @@ target 'twitter_4' do
   use_frameworks!
 
   pod 'SideMenu'
+  pod 'RealmSwift', '~>10'
   # Pods for twitter_4
 
   target 'twitter_4Tests' do
